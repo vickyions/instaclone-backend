@@ -39,9 +39,11 @@ router.get("/", async (_req, res) => {
 });
 
 router.post("/", upload.any(), async (req, res) => {
-  const file = req.files[0];
-  let imageFile = file.path;
+  let globImage = null;
   try {
+    const file = req.files[0];
+    let imageFile = file.path;
+    if (imageFile) globImage = imageFile;
     // Upload file to Cloudinary
     const uploadedImage = await cloudinary.uploader.upload(imageFile, {
       tags: "instaclone",
@@ -63,13 +65,15 @@ router.post("/", upload.any(), async (req, res) => {
     console.dir(err);
     res.status(500).json({
       status: "failed",
-      message: "server error during posting image"
+      message: "server error during posting image",
     });
     //even if failed delete that file
-    fs.unlink(imageFile, (err) => {
-      if (err) console.dir(err);
-      else console.log("deleted file after some error", imageFile);
-    });
+    if (globImage) {
+      fs.unlink(globImage, (err) => {
+        if (err) console.dir(err);
+        else console.log("deleted file after some error", globImage);
+      });
+    }
   }
 });
 
