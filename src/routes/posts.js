@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const uuid = require('uuid');
+const uuidv4 = require('uuid').v4;
 
-const Post = require('./models/Post');
+const Post = require('../models/Post');
 
 router.get("/", async (_req, res) => {
     try {
@@ -20,5 +20,8 @@ router.get("/", async (_req, res) => {
     }
 });
 
+router.post("/", (req, res) => {
+    console.dir(req);
+})
 
 module.exports = router;
