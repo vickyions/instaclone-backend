@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 //routes
-app.use("/posts", postsRoutes);
+app.use("/posts", postsRoute);
 
 app.all("*", (_req, res) => {
     res.status(404).json({
