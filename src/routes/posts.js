@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const uuidv4 = require('uuid').v4;
 
+const multer = require('multer');
+const upload = multer(); //to handle form-data
+
 const Post = require('../models/Post');
 
 router.get("/", async (_req, res) => {
@@ -20,8 +23,10 @@ router.get("/", async (_req, res) => {
     }
 });
 
-router.post("/", (req, res) => {
-    console.dir(req);
+router.post("/", upload.any(),(req, res) => {
+    console.dir(req.body);
+    console.dir(req.files)
+    res.json();
 })
 
 module.exports = router;
