@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const postsRoute = require('./routes/posts');
+const cors = require('cors');
 
+app.use(cors());
 //bodyparsers
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
