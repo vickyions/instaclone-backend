@@ -54,7 +54,11 @@ router.post("/", upload.any(), async (req, res) => {
       ...req.body,
       PostImage: uploadedImage.secure_url,
     });
-    res.json(post);
+    res.json({
+      status: "success",
+      message: "successfully uploaded the post",
+      post,
+    });
     //deleting after success
     fs.unlink(imageFile, (err) => {
       if (err) console.dir(err);
